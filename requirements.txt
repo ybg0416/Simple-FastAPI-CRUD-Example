@@ -1,0 +1,13 @@
+SQLAlchemy~=2.0.31
+sqlmodel~=0.0.21
+fastapi~=0.111.1
+loguru~=0.7.2
+pydantic~=2.8.2
+psutil~=6.0.0
+phonenumbers~=8.13.40
+pydantic_core~=2.20.1
+uuid~=1.30
+starlette~=0.37.2
+pydantic_extra_types~=2.9.0
+pydantic_settings~=2.3.4
+asyncpg~=0.29.0

@@ -1,0 +1,7 @@
+-r requirements.txt
+
+isort
+black
+ruff
+pytest
+coverage[toml]
