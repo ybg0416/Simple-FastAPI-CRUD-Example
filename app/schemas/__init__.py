@@ -1,2 +1,2 @@
 from .health import APIStatus
-from .member import AddMember, MemberBase, OutMember, UpdateMember
+from .member import CreateMember, InfoMember, MemberBase, UpdateMember

@@ -53,21 +53,21 @@ if settings.ENV == "development":
     app = FastAPI(
         title=settings.PROJECT_NAME,
         version=settings.VERSION,
-        openapi_url=f"/{settings.API_V1_STR}/openapi.json",
-        redoc_url=None,
-        docs_url="/api/v1/docs",
+        openapi_url="/openapi.json",
+        docs_url="/swagger",
+        redoc_url="/redoc",
         lifespan=startup_event,
     )
 
     @app.get("/", include_in_schema=False)
     async def docs_redirect() -> RedirectResponse:
-        return RedirectResponse(url="/api/v1/docs")
+        return RedirectResponse(url=f"/api/{settings.API_V1_STR}/docs")
 
 else:
     app = FastAPI(
         title=settings.PROJECT_NAME,
         version=settings.VERSION,
-        openapi_url=f"/{settings.API_V1_STR}/openapi.json",
+        openapi_url="/openapi.json",
         redoc_url=None,
         docs_url=None,
     )

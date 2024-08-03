@@ -10,7 +10,7 @@ class MemberBase(BaseModel):
     phone: PhoneNumber = Field(title="phone number", examples=["+821012345678"])
 
 
-class AddMember(MemberBase):
+class CreateMember(MemberBase):
     pass
 
 
@@ -18,7 +18,7 @@ class UpdateMember(MemberBase):
     pass
 
 
-class OutMember(MemberBase):
+class InfoMember(MemberBase):
     uuid: UUID = Field(
         title="UUID of the user", examples=["123e4567-e89b-12d3-a456-426614174001"]
     )

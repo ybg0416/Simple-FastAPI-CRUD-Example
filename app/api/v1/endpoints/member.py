@@ -13,8 +13,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.db.postgresql import get_db
 from app.models import Member
 from app.schemas import (
-    AddMember,
-    OutMember,
+    CreateMember,
+    InfoMember,
     UpdateMember,
 )
 
@@ -22,7 +22,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/",
+    "",
     status_code=status.HTTP_200_OK,
     responses={
         200: {
@@ -51,7 +51,7 @@ async def get_all_member(db: AsyncSession = Depends(get_db)):
 async def get_member_by_id(
     member_id: int = Path(description="Member ID", alias="id"),
     db: AsyncSession = Depends(get_db),
-) -> OutMember:
+) -> InfoMember:
     """
     ### get Member By ID
     """
@@ -60,11 +60,11 @@ async def get_member_by_id(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
         )
-    return OutMember(**member.model_dump())
+    return InfoMember(**member.model_dump())
 
 
 @router.post(
-    "/",
+    "",
     status_code=status.HTTP_201_CREATED,
     responses={
         201: {"description": "가입 Member 정보 반환"},
@@ -73,8 +73,8 @@ async def get_member_by_id(
     },
 )
 async def create_member(
-    param: AddMember, db: AsyncSession = Depends(get_db)
-) -> OutMember:
+    param: CreateMember, db: AsyncSession = Depends(get_db)
+) -> InfoMember:
     """
     ### add Member
     """
@@ -100,7 +100,7 @@ async def create_member(
         logger.error(e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR) from e
     logger.info(new_member)
-    return OutMember(**new_member.model_dump())
+    return InfoMember(**new_member.model_dump())
 
 
 @router.put(
@@ -121,7 +121,7 @@ async def update_member(
     param: UpdateMember,
     member_id: int = Path(alias="id"),
     db: AsyncSession = Depends(get_db),
-) -> OutMember:
+) -> InfoMember:
     """
     ### update Member
     """
@@ -153,7 +153,7 @@ async def update_member(
         await db.commit()
         await db.refresh(existing_memeber)
 
-        return OutMember(**existing_memeber.model_dump())
+        return InfoMember(**existing_memeber.model_dump())
     except Exception as e:
         logger.error(e)
         raise HTTPException(status_code=status.HTTP_409_CONFLICT) from e
