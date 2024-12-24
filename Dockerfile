@@ -9,13 +9,11 @@ FROM require AS venv
 WORKDIR /usr/src/app
 
 RUN python -m venv .venv
-RUN source .venv/bin/activate
 
 COPY ./requirements.txt .
 COPY ./requirements-dev.txt .
 
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir --upgrade -r requirements-dev.txt
+RUN source .venv/bin/activate && pip install --upgrade pip && pip install --no-cache-dir --upgrade -r requirements-dev.txt
 
 FROM venv AS runner
 WORKDIR /usr/src/app
@@ -26,5 +24,5 @@ RUN source .venv/bin/activate
 COPY .env .
 COPY app/ ./app
 
-ENTRYPOINT [ "uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8000" ]
+ENTRYPOINT ["sh", "-c", "source .venv/bin/activate &&uvicorn app.main:app --proxy-headers --host 0.0.0.0 --port 8000" ]
 HEALTHCHECK --interval=10s --timeout=5s CMD curl -k --fail http://localhost:8000/health || exit 1
