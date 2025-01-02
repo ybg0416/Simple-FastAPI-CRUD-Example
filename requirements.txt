@@ -1,12 +1,15 @@
+starlette~=0.40.0
 SQLAlchemy~=2.0.36
 sqlmodel~=0.0.22
 fastapi~=0.115.6
 loguru~=0.7.3
-pydantic~=2.10.4
 psutil~=6.1.1
-phonenumbers~=8.13.52
+pydantic[email]~=2.10.4
 pydantic_core~=2.27.2
 pydantic-extra-types~=2.10.1
 pydantic-settings~=2.7.0
+phonenumbers~=8.13.52
 uuid~=1.30
 asyncpg~=0.30.0
+uvicorn~=0.34.0
+greenlet~=3.1.1

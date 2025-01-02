@@ -1,4 +1,4 @@
-FROM python:3.12-alpine AS require
+FROM python:3.13-alpine AS require
 LABEL authors="YBG"
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -10,8 +10,7 @@ WORKDIR /usr/src/app
 
 RUN python -m venv .venv
 
-COPY ./requirements.txt .
-COPY ./requirements-dev.txt .
+COPY ./requirements.txt ./requirements-dev.txt ./
 
 RUN source .venv/bin/activate && pip install --upgrade pip && pip install --no-cache-dir --upgrade -r requirements-dev.txt
 
@@ -19,10 +18,9 @@ FROM venv AS runner
 WORKDIR /usr/src/app
 
 COPY --from=venv /usr/src/app/.venv ./
-RUN source .venv/bin/activate
 
 COPY .env .
 COPY app/ ./app
 
-ENTRYPOINT ["sh", "-c", "source .venv/bin/activate &&uvicorn app.main:app --proxy-headers --host 0.0.0.0 --port 8000" ]
+ENTRYPOINT ["sh", "-c", "source .venv/bin/activate && uvicorn app.main:app --proxy-headers --host 0.0.0.0 --port 8000" ]
 HEALTHCHECK --interval=10s --timeout=5s CMD curl -k --fail http://localhost:8000/health || exit 1
