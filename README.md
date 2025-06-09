@@ -2,7 +2,7 @@
 
 ## 📌 Features
 
-- 240727 created, Python 3.12.x, fastapi~=0.111.1, pydantic~=2.8.2, sqlmodel~=0.0.21
+- Python 3.13.x, fastapi~=0.115.12, pydantic~=2.11.5, sqlmodel~=0.0.22
     - PostgreSQL
     - Create an initial user
     - endpoints CRUD
@@ -21,8 +21,12 @@
 ## 💾 Installation
 
 ```bash
+# pip 
 python -m pip install --upgrade pip
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
+
+# uv
+uv sync
 ```
 
 ## 🔧 Config

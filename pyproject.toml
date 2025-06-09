@@ -1,3 +1,36 @@
+[project]
+name = "simple-fastapi-crud-example"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "asyncpg~=0.30.0",
+    "fastapi~=0.115.12",
+    "greenlet==3.2.3",
+    "loguru~=0.7.3",
+    "phonenumbers==9.0.7",
+    "psutil==7.0.0",
+    "pydantic[email]>=2.11.5",
+    "pydantic-core~=2.33.2",
+    "pydantic-extra-types~=2.10.1",
+    "pydantic-settings==2.9.1",
+    "sqlalchemy~=2.0.36",
+    "sqlmodel~=0.0.22",
+    "starlette~=0.40.0",
+    "uuid~=1.30",
+    "uvicorn~=0.34.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "coverage[toml]>=7.8.2",
+    "isort>=6.0.1",
+    "pytest>=8.4.0",
+    "ruff>=0.11.13",
+]
+
+
 [tool.isort]
 profile = "black"
 

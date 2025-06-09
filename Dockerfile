@@ -8,11 +8,11 @@ RUN apk update && apk add gcc linux-headers libc-dev curl
 FROM require AS venv
 WORKDIR /usr/src/app
 
-RUN python -m venv .venv
+RUN pip install uv
 
-COPY ./requirements.txt ./requirements-dev.txt ./
+COPY pyproject.toml ./
 
-RUN source .venv/bin/activate && pip install --upgrade pip && pip install --no-cache-dir --upgrade -r requirements-dev.txt
+RUN uv sync
 
 FROM venv AS runner
 WORKDIR /usr/src/app
