@@ -32,7 +32,6 @@ uv sync
 ## 🔧 Config
 
 - `.env.example`을 복사, 참고 하여 `.env` 파일 작성
-  - 별도 수정 없이 docker 내에서 실행 시, `POSTGRES_HOST`의 `localhost` ->`host.docker.internal` || `postgres`
 
 ## 🏃 Run
 
