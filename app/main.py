@@ -12,9 +12,9 @@ from app.api.v1.api import api_router
 from app.core.config import settings
 from app.middlewares import ProcessTimeHeaderMiddleware
 
-from .db import get_db, init_db
-from .logger import setup_logging
-from .models import Member
+from app.logger import setup_logging
+from app.db import get_db, init_db
+from app.models import Member
 
 
 @asynccontextmanager
@@ -25,10 +25,11 @@ async def startup_event(app: FastAPI):
     db: AsyncSession | None = None
     try:
         db = await anext(get_db())
-
         await init_db()
         if settings.ENV == "development":
-            is_member = (await db.exec(select(func.count()).select_from(Member))).first()
+            is_member = (
+                await db.exec(select(func.count()).select_from(Member))
+            ).first()
 
             if not is_member:
                 db.add(
@@ -58,11 +59,6 @@ if settings.ENV == "development":
         redoc_url="/redoc",
         lifespan=startup_event,
     )
-
-    @app.get("/", include_in_schema=False)
-    async def docs_redirect() -> RedirectResponse:
-        return RedirectResponse(url=f"/api/{settings.API_V1_STR}/docs")
-
 else:
     app = FastAPI(
         title=settings.PROJECT_NAME,
@@ -71,6 +67,13 @@ else:
         redoc_url=None,
         docs_url=None,
     )
+
+
+@app.get("/", include_in_schema=False)
+async def docs_redirect() -> RedirectResponse:
+    return RedirectResponse(url="/openapi.json")
+
+
 # Routes
 app.include_router(api_router)
 

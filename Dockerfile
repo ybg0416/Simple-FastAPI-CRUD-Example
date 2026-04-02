@@ -1,13 +1,8 @@
-FROM python:3.13-alpine AS require
+FROM python:3.14-alpine AS require
 LABEL authors="YBG"
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-
-# psutil 모듈 설치를 위해 필요한 패키지 설치
-RUN apk add --no-cache --update \
-    build-base \
-    linux-headers
 
 FROM require AS venv
 WORKDIR /usr/src/app

@@ -2,7 +2,7 @@
 
 ## 📌 Features
 
-- Python 3.13.x, fastapi~=0.115.12, pydantic~=2.11.5, sqlmodel~=0.0.22
+- Python 3.14.x, fastapi~=0.135.3, pydantic~=2.41.5, sqlmodel~=0.0.37
     - PostgreSQL
     - Create an initial user
     - endpoints CRUD
